@@ -34,6 +34,7 @@ export class BodyComponent implements OnInit {
   brickPadding:number = 10;
   brickOffsetTop:number = 30;
   brickOffsetLeft:number = 30;
+  score:number = 0;
 
   bricks:any[] = [];
 
@@ -65,11 +66,13 @@ export class BodyComponent implements OnInit {
     for(var c:number=0; c<this.brickColumnCount; c++) {
       this.bricks[c] = [];
       for(var r:number=0; r<this.brickRowCount; r++) {
-          this.bricks[c][r] = { x: 0, y: 0 };
+          this.bricks[c][r] = { x: 0, y: 0, status: 1 };
       }
     }
 
     this.draw();
+
+
     
    }
 
@@ -118,7 +121,7 @@ export class BodyComponent implements OnInit {
     var ctx = this.context;
     for(var c:number=0; c<this.brickColumnCount; c++) {
         for(var r:number=0; r<this.brickRowCount; r++) {
-          // if(this.bricks[c][r].status == 1) {
+          if(this.bricks[c][r].status == 1) {
               var brickX = (c*(this.brickWidth+this.brickPadding))+this.brickOffsetLeft;
               var brickY = (r*(this.brickHeight+this.brickPadding))+this.brickOffsetTop;
               this.bricks[c][r].x = brickX;
@@ -128,7 +131,7 @@ export class BodyComponent implements OnInit {
               ctx.fillStyle = "#0095DD";
               ctx.fill();
               ctx.closePath();
-          // }
+          }
         }
     }
   }
@@ -141,10 +144,25 @@ export class BodyComponent implements OnInit {
                 if(this.x > b.x && this.x < b.x+this.brickWidth && this.y > b.y && this.y < b.y+this.brickHeight) {
                   this.dy = -(this.dy);
                     b.status = 0;
+                    console.log('!!!!');
+                    this.score++;
+                    if(this.score == this.brickRowCount*this.brickColumnCount){
+                      alert("YOU WIN, CONGRATS!");
+                      // TODO 캔버스 리로드...
+ 
+                    }
                 }
             }
         }
     }
+  }
+
+  drawScore() {
+    var ctx = this.context;
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+this.score,8,20);
+
   }
 
 
@@ -161,7 +179,8 @@ export class BodyComponent implements OnInit {
     this.drawBricks();
     this.drawBall();
     this.drawPaddle();
-    // this.collisionDetection();
+    this.drawScore(); 
+    this.collisionDetection();
 
     if(this.x + this.dx > this.canvas.width-this.ballRadius || this.x + this.dx < this.ballRadius) {
       this.dx = -(this.dx);
@@ -169,11 +188,15 @@ export class BodyComponent implements OnInit {
     if(this.y + this.dy < this.ballRadius) {
       this.dy = -(this.dy);
     }else if(this.y + this.dy > this.canvas.height - this.ballRadius) {
-      if(this.x> this.paddleX && this.x < this.paddleX + this.paddleWidth) {
-        this.dy = -(this.dy);
+      if(this.x > this.paddleX && this.x < this.paddleX + this.paddleWidth) {
+          if(this.y-this.paddleHeight) {
+            this.dy = -(this.dy);
+          }
       }else {
         if(this.isLive){
           alert("GAME OVER");
+          // TODO 캔버스 리로드...
+          
         }
 
         this.isLive = false;
