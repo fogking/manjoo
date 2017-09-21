@@ -25,8 +25,8 @@ export class BlockGameComponent implements OnInit {
 
   brickRowCount:number = 3;
   brickColumnCount:number = 5;
-  brickWidth:number = 75;
-  brickHeight:number = 20;
+  brickWidth:number = 53;
+  brickHeight:number = 10;
   brickPadding:number = 10;
   brickOffsetTop:number = 30;
   brickOffsetLeft:number = 30;
@@ -35,8 +35,13 @@ export class BlockGameComponent implements OnInit {
   bricks:any[] = [];
 
   // 내가 추가한거
-  lives:number = 3;
-  ballColor:string = "#0095DD"; 
+  lives:number;
+  ballColor:string = "#0095DD";
+  level:number = 1;
+  ballSpeedX:number = 2;
+  ballSpeedY:number = -2;
+  ballSpeedInterval = 0.5;
+
   
   @ViewChild("myCanvas") myCanvas;
 
@@ -46,17 +51,28 @@ export class BlockGameComponent implements OnInit {
     this.canvas = this.myCanvas.nativeElement;
     this.context = this.canvas.getContext("2d");
 
+    this.customInit();
+    
+    this.draw();
+  }
+
+  // game over
+  customInit(){
     this.ballRadius = 10;
+
     this.x = this.canvas.width/2;
     this.y = this.canvas.height-30;
-    this.dx = 2;
-    this.dy = -2;
+    this.dx = this.ballSpeedX;
+    this.dy = this.ballSpeedY;
 
     this.paddleHeight = 10;
     this.paddleWidth = 75;
     this.paddleX = (this.canvas.width-this.paddleWidth)/2;
     this.rightPressed = false;
     this.leftPressed =false;
+
+    this.score = 0;
+    this.lives = 8;
 
     // 대라기 빡대가리 됬나봐 배열 문법 몰라서 해맴 ... 시발.....
     for(var c:number=0; c<this.brickColumnCount; c++) {
@@ -66,8 +82,8 @@ export class BlockGameComponent implements OnInit {
       }
     }
 
-    this.draw();
   }
+
 
   leftMove($event:MouseEvent){
     this.leftPressed = true;
@@ -93,16 +109,21 @@ export class BlockGameComponent implements OnInit {
         this.paddleX = relativeX - this.paddleWidth/2;
     }
   }
+
+  touchMove($event:TouchEvent){
+    // alert("터치 되냐?");
+    var relativeX = $event.touches[0].clientX - this.canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < this.canvas.width) {
+        this.paddleX = relativeX - this.paddleWidth/2;
+    }
+  }
+
     
   drawBall() {
-
     var ctx = this.context;
     ctx.beginPath();
     ctx.arc(this.x, this.y, 10, 0, Math.PI*2);
-    
-
     ctx.fillStyle = this.ballColor;
-    // ctx.fillStyle = "#"+r+g+b;
     ctx.fill();
     ctx.closePath();
   }
@@ -176,7 +197,13 @@ export class BlockGameComponent implements OnInit {
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Lives: "+this.lives, this.canvas.width-65, 20);
   }
-    
+  
+  drawLevel() {
+    var ctx = this.context;
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Level: "+this.level , (this.canvas.width/2)-20, 20);
+  }
     
     
   draw() {
@@ -193,6 +220,7 @@ export class BlockGameComponent implements OnInit {
     this.drawPaddle();
     this.drawScore();
     this.drawLives(); 
+    this.drawLevel(); 
     this.collisionDetection();
 
     if(this.x + this.dx > this.canvas.width-this.ballRadius || this.x + this.dx < this.ballRadius) {
@@ -209,11 +237,15 @@ export class BlockGameComponent implements OnInit {
         this.lives--;
         if(!this.lives) {
           alert("GAME OVER");
+          this.customInit();
         }else {
+          this.ballSpeedX += this.ballSpeedInterval;
+          this.ballSpeedY -= this.ballSpeedInterval;
+          // alert('x = '+this.dx + ' , y ='+this.dy);
           this.x = this.canvas.width/2;
           this.y = this.canvas.height-30;
-          this.dx = 3;
-          this.dy = -3;
+          this.dx = this.ballSpeedX;
+          this.dy = this.ballSpeedY;
           this.paddleX = (this.canvas.width-this.paddleWidth)/2;
         }
       }
