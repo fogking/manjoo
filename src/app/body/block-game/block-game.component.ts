@@ -69,6 +69,24 @@ export class BlockGameComponent implements OnInit {
     this.draw();
   }
 
+  leftMove($event:MouseEvent){
+    this.leftPressed = true;
+    this.rightPressed = false;
+
+    console.log("되냐?");
+  }
+
+  rightMove($event:MouseEvent){
+    this.leftPressed = false;
+    this.rightPressed = true;
+    
+  }
+
+  notMove($event:MouseEvent){
+    this.leftPressed = false;
+    this.rightPressed = false;
+  }
+
   mouseMove($event:MouseEvent){  
     var relativeX = $event.clientX - this.canvas.offsetLeft;
     if(relativeX > 0 && relativeX < this.canvas.width) {

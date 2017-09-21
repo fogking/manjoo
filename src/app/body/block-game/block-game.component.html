@@ -1,1 +1,7 @@
-<canvas #myCanvas width="480" height="320"  (mousemove)="mouseMove($event)" ></canvas>
+<div>
+    <button class="fa fa-angle-double-left button" type="button" 
+        (mousedown)="leftMove($event)" (mouseup)="notMove($event)">  </button>
+    <canvas #myCanvas width="480" height="320"  (mousemove)="mouseMove($event)" ></canvas>
+    <button class="fa fa-angle-double-right button" type="button" 
+        (mousedown)="rightMove($event)" (mouseup)="notMove($event)">  </button>
+</div>
