@@ -38,8 +38,8 @@ export class BlockGameComponent implements OnInit {
   lives:number;
   ballColor:string = "#0095DD";
   level:number = 1;
-  ballSpeedX:number = 2;
-  ballSpeedY:number = -2;
+  ballSpeedX:number;
+  ballSpeedY:number;
   ballSpeedInterval = 0.5;
 
   
@@ -62,6 +62,10 @@ export class BlockGameComponent implements OnInit {
 
     this.x = this.canvas.width/2;
     this.y = this.canvas.height-30;
+
+    this.ballSpeedX = 2;
+    this.ballSpeedY = -2;
+
     this.dx = this.ballSpeedX;
     this.dy = this.ballSpeedY;
 
@@ -73,6 +77,7 @@ export class BlockGameComponent implements OnInit {
 
     this.score = 0;
     this.lives = 8;
+    this.level = 1;
 
     // 대라기 빡대가리 됬나봐 배열 문법 몰라서 해맴 ... 시발.....
     for(var c:number=0; c<this.brickColumnCount; c++) {
@@ -81,8 +86,32 @@ export class BlockGameComponent implements OnInit {
           this.bricks[c][r] = { x: 0, y: 0, status: 1 };
       }
     }
-
   }
+
+    // level up
+    levelUp(){
+      this.ballRadius = 10;
+      // this.brickRowCount += 1;
+  
+      this.x = this.canvas.width/2;
+      this.y = this.canvas.height-30;
+      this.dx = this.ballSpeedX;
+      this.dy = this.ballSpeedY;
+  
+      this.paddleHeight = 10;
+      this.paddleWidth = 75;
+      this.paddleX = (this.canvas.width-this.paddleWidth)/2;
+      this.rightPressed = false;
+      this.leftPressed =false;
+  
+      // 대라기 빡대가리 됬나봐 배열 문법 몰라서 해맴 ... 시발.....
+      for(var c:number=0; c<this.brickColumnCount; c++) {
+        this.bricks[c] = [];
+        for(var r:number=0; r<this.brickRowCount; r++) {
+            this.bricks[c][r] = { x: 0, y: 0, status: 1 };
+        }
+      }
+    }
 
 
   leftMove($event:MouseEvent){
@@ -172,8 +201,14 @@ export class BlockGameComponent implements OnInit {
                     b.status = 0;
                     console.log('!!!!');
                     this.score++;
-                    if(this.score == this.brickRowCount*this.brickColumnCount){
-                      alert("YOU WIN, CONGRATS!");
+                    if((this.score % (this.brickRowCount*this.brickColumnCount)) == 0 ){
+                      alert("Level UP!!!!");
+                      this.level += 1;
+                      this.ballSpeedX += this.ballSpeedInterval;
+                      this.ballSpeedY -= this.ballSpeedInterval;
+                      this.dx += this.ballSpeedX;
+                      this.dy -= this.ballSpeedY;
+                      this.levelUp();
                       // TODO 캔버스 리로드...
   
                     }
