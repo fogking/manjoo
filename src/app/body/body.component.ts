@@ -35,7 +35,7 @@ export class BodyComponent implements OnInit {
   brickOffsetTop:number = 30;
   brickOffsetLeft:number = 30;
 
-  bricks:any[][];
+  bricks:any[] = [];
   
   
   @ViewChild("myCanvas") myCanvas;
@@ -58,17 +58,13 @@ export class BodyComponent implements OnInit {
     this.rightPressed = false;
     this.leftPressed =false;
 
+    // 대라기 빡대가리 됬나봐 배열 문법 몰라서 해맴 ... 시발.....
     for(var c:number=0; c<this.brickColumnCount; c++) {
-      console.log(c);
-      // this.bricks[c] = c;
+      this.bricks[c] = [];
       for(var r:number=0; r<this.brickRowCount; r++) {
           this.bricks[c][r] = { x: 0, y: 0 };
       }
-
     }
-
-    // console.log(this.bricks);
-    
 
     this.draw();
     
@@ -141,7 +137,7 @@ export class BodyComponent implements OnInit {
 
     var ctx = this.context;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    // this.drawBricks();
+    this.drawBricks();
     this.drawBall();
     this.drawPaddle();
 
