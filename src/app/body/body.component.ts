@@ -86,14 +86,14 @@ export class BodyComponent implements OnInit {
   }
 
   keyUp($event: KeyboardEvent) {
-  }
+  } 
   
-  mouseMove(){
+  mouseMove($event:MouseEvent){
     console.log("ddd");
-    // var relativeX = e.clientX - canvas.offsetLeft;
-    // if(relativeX > 0 && relativeX < canvas.width) {
-    //     paddleX = relativeX - paddleWidth/2;
-    // }
+    var relativeX = $event.clientX - this.canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < this.canvas.width) {
+        this.paddleX = relativeX - this.paddleWidth/2;
+    }
   }
 
   drawBall() {
