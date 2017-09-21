@@ -36,11 +36,13 @@ export class BodyComponent implements OnInit {
   brickOffsetLeft:number = 30;
   score:number = 0;
 
+
+
   bricks:any[] = [];
 
   // 내가 추가한거
-  isLive:boolean = true;
-  
+  lives:number = 3;
+  ballColor:string = "#0095DD"; 
   
   @ViewChild("myCanvas") myCanvas;
 
@@ -89,7 +91,7 @@ export class BodyComponent implements OnInit {
   } 
   
   mouseMove($event:MouseEvent){
-    console.log("ddd");
+
     var relativeX = $event.clientX - this.canvas.offsetLeft;
     if(relativeX > 0 && relativeX < this.canvas.width) {
         this.paddleX = relativeX - this.paddleWidth/2;
@@ -101,7 +103,10 @@ export class BodyComponent implements OnInit {
     var ctx = this.context;
     ctx.beginPath();
     ctx.arc(this.x, this.y, 10, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    
+
+    ctx.fillStyle = this.ballColor;
+    // ctx.fillStyle = "#"+r+g+b;
     ctx.fill();
     ctx.closePath();
   }
@@ -111,8 +116,8 @@ export class BodyComponent implements OnInit {
     var ctx = this.context;
     ctx.beginPath();
     ctx.rect(this.paddleX, this.canvas.height-this.paddleHeight, this.paddleWidth, this.paddleHeight);
-    // console.log(ctx.rect );
     ctx.fillStyle = "#0095DD";
+    
     ctx.fill();
     ctx.closePath();
   }
@@ -165,6 +170,13 @@ export class BodyComponent implements OnInit {
 
   }
 
+  drawLives() {
+    var ctx = this.context;
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+this.lives, this.canvas.width-65, 20);
+}
+
 
 
   draw() {
@@ -179,29 +191,33 @@ export class BodyComponent implements OnInit {
     this.drawBricks();
     this.drawBall();
     this.drawPaddle();
-    this.drawScore(); 
+    this.drawScore();
+    this.drawLives(); 
     this.collisionDetection();
 
     if(this.x + this.dx > this.canvas.width-this.ballRadius || this.x + this.dx < this.ballRadius) {
+      var r = Math.floor(Math.random()*99);		// 0 ~ 255 까지의 난수 얻어오기
+      var g = Math.floor(Math.random()*99);
+      var b = Math.floor(Math.random()*99);
+      this.ballColor = "#"+r+g+b;
       this.dx = -(this.dx);
     }
     if(this.y + this.dy < this.ballRadius) {
       this.dy = -(this.dy);
     }else if(this.y + this.dy > this.canvas.height - this.ballRadius) {
       if(this.x > this.paddleX && this.x < this.paddleX + this.paddleWidth) {
-          if(this.y-this.paddleHeight) {
-            this.dy = -(this.dy);
-          }
+        this.dy = -(this.dy);  
       }else {
-        if(this.isLive){
+        this.lives--;
+        if(!this.lives) {
           alert("GAME OVER");
-          // TODO 캔버스 리로드...
-          
+        }else {
+          this.x = this.canvas.width/2;
+          this.y = this.canvas.height-30;
+          this.dx = 3;
+          this.dy = -3;
+          this.paddleX = (this.canvas.width-this.paddleWidth)/2;
         }
-
-        this.isLive = false;
-        
-
       }
     }
 
