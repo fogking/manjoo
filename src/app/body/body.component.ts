@@ -36,6 +36,9 @@ export class BodyComponent implements OnInit {
   brickOffsetLeft:number = 30;
 
   bricks:any[] = [];
+
+  // 내가 추가한거
+  isLive:boolean = true;
   
   
   @ViewChild("myCanvas") myCanvas;
@@ -115,18 +118,36 @@ export class BodyComponent implements OnInit {
     var ctx = this.context;
     for(var c:number=0; c<this.brickColumnCount; c++) {
         for(var r:number=0; r<this.brickRowCount; r++) {
-            var brickX = (c*(this.brickWidth+this.brickPadding))+this.brickOffsetLeft;
-            var brickY = (r*(this.brickHeight+this.brickPadding))+this.brickOffsetTop;
-            this.bricks[c][r].x = brickX;
-            this.bricks[c][r].y = brickY;
-            ctx.beginPath();
-            ctx.rect(brickX, brickY, this.brickWidth, this.brickHeight);
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
-            ctx.closePath();
+          // if(this.bricks[c][r].status == 1) {
+              var brickX = (c*(this.brickWidth+this.brickPadding))+this.brickOffsetLeft;
+              var brickY = (r*(this.brickHeight+this.brickPadding))+this.brickOffsetTop;
+              this.bricks[c][r].x = brickX;
+              this.bricks[c][r].y = brickY;
+              ctx.beginPath();
+              ctx.rect(brickX, brickY, this.brickWidth, this.brickHeight);
+              ctx.fillStyle = "#0095DD";
+              ctx.fill();
+              ctx.closePath();
+          // }
         }
     }
   }
+
+  collisionDetection() {
+    for(var c=0; c<this.brickColumnCount; c++) {
+        for(var r=0; r<this.brickRowCount; r++) {
+            var b = this.bricks[c][r];
+            if(b.status == 1) {
+                if(this.x > b.x && this.x < b.x+this.brickWidth && this.y > b.y && this.y < b.y+this.brickHeight) {
+                  this.dy = -(this.dy);
+                    b.status = 0;
+                }
+            }
+        }
+    }
+  }
+
+
 
   draw() {
 
@@ -140,13 +161,28 @@ export class BodyComponent implements OnInit {
     this.drawBricks();
     this.drawBall();
     this.drawPaddle();
+    // this.collisionDetection();
 
     if(this.x + this.dx > this.canvas.width-this.ballRadius || this.x + this.dx < this.ballRadius) {
       this.dx = -(this.dx);
     }
-    if(this.y + this.dy > this.canvas.height-this.ballRadius || this.y + this.dy < this.ballRadius) {
+    if(this.y + this.dy < this.ballRadius) {
       this.dy = -(this.dy);
+    }else if(this.y + this.dy > this.canvas.height - this.ballRadius) {
+      if(this.x> this.paddleX && this.x < this.paddleX + this.paddleWidth) {
+        this.dy = -(this.dy);
+      }else {
+        if(this.isLive){
+          alert("GAME OVER");
+        }
+
+        this.isLive = false;
+        
+
+      }
     }
+
+
 
     if(this.rightPressed && this.paddleX < this.canvas.width-this.paddleWidth) {
       this.paddleX += 7;
