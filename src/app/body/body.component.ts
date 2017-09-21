@@ -148,6 +148,10 @@ export class BodyComponent implements OnInit {
             if(b.status == 1) {
                 if(this.x > b.x && this.x < b.x+this.brickWidth && this.y > b.y && this.y < b.y+this.brickHeight) {
                   this.dy = -(this.dy);
+                  var cr = Math.floor(Math.random()*99);		// 0 ~ 255 까지의 난수 얻어오기
+                  var cg = Math.floor(Math.random()*99);
+                  var cb = Math.floor(Math.random()*99);
+                  this.ballColor = "#"+cr+cg+cb;
                     b.status = 0;
                     console.log('!!!!');
                     this.score++;
@@ -196,14 +200,12 @@ export class BodyComponent implements OnInit {
     this.collisionDetection();
 
     if(this.x + this.dx > this.canvas.width-this.ballRadius || this.x + this.dx < this.ballRadius) {
-      var r = Math.floor(Math.random()*99);		// 0 ~ 255 까지의 난수 얻어오기
-      var g = Math.floor(Math.random()*99);
-      var b = Math.floor(Math.random()*99);
-      this.ballColor = "#"+r+g+b;
+
       this.dx = -(this.dx);
     }
     if(this.y + this.dy < this.ballRadius) {
       this.dy = -(this.dy);
+
     }else if(this.y + this.dy > this.canvas.height - this.ballRadius) {
       if(this.x > this.paddleX && this.x < this.paddleX + this.paddleWidth) {
         this.dy = -(this.dy);  
