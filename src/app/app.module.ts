@@ -13,6 +13,7 @@ import { MySpecialLoggerService } from "./service/my-special-logger.service";
 import { AnotherLoggerService } from "./service/another-logger.service";
 import { LogLevel } from "./service/log-level.enum";
 import { LOG_LEVEL_TOKEN } from "./app.token";
+import { BlockGameComponent } from './body/block-game/block-game.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LOG_LEVEL_TOKEN } from "./app.token";
     BodyComponent,
     HonorPipe,
     MouseTrackZoneComponent,
+    BlockGameComponent,
 
   ],
   imports: [
