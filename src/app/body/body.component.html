@@ -1,0 +1,63 @@
+<script src="https://use.fontawesom.com/926fe18a63.js"></script>
+
+<section class="conA">
+    <div calss="container">
+        <!-- <img src="/assets/image/MANJOO_CI.svg" alt=""> -->
+        <h1>MANJOO</h1>
+        <p>매일 매일 즐겁게 코딩하는 회사</p>
+        <a href="#"  (click)="startManjoo()">만주 시작하기</a>
+    </div>
+</section>
+
+<section class="conB">
+    <div class="container">
+        <div class="text">
+            <span class="fa fa-home icon"></span>
+            <h2>만주란?</h2>
+            <p>만주 처럼 달콤한 서비스들을 제공하는 회사입니다.</p>
+            <a href="#">MORE...
+                <span class="fa fa-chevron-right"></span>
+            </a>
+        </div>
+        <div class="text">
+            <span class="fa fa-gears icon"></span>
+            <h2>서비스가 만들어 지는 과정은?</h2>
+            <p>코딩 코딩.. 무한 삽질 코딩을 통해서 만들어지고 있습니다. ^__^</p>
+            <a href="#">MORE...
+                <span class="fa fa-chevron-right"></span>
+            </a>
+        </div>
+        <div class="text">
+            <span class="fa fa-rocket icon"></span>
+            <h2>거시기?</h2>
+            <p>마땅히 즐길 서비스가 없을 때 서비스를 추천해줍니다.</p>
+            <a href="#">MORE...
+                <span class="fa fa-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="bolckGame">
+    <div class="container" (click)="keyDown($event)">
+        <canvas #myCanvas width="480" height="320"  (mousemove)="mouseMove()" ></canvas>
+    </div>
+</section>
+      
+
+<!-- <div class="counter" [style.backgroundColor]="colorByValue()">{{curVal}}</div>
+<div class="row buttons">
+    <button type="button" (click)="inc()">+</button>
+    <button type="button" (click)="dec()">-</button>
+</div>
+<div class="row manual-action">
+    <label for="manual-val">수동 수정:</label>
+    <input type="number" id="manual-val" [(ngModel)]="manualVal">
+    <button type="button" (click)="setValueForcibly()">강제 저장</button>
+
+    
+</div> -->
+
+<!-- <app-mouse-track-zone></app-mouse-track-zone> -->
+
+        
