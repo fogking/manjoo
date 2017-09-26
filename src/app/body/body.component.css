@@ -172,8 +172,60 @@ app-body {
 
 .conC .text {
     padding: 20px;
+    text-align: left;
+    /* background-color: rgba(255,255,255,0.5); */
 }
 
+
+.conD h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.conD p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    opacity:0.8
+}
+
+.conD a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    box-shadow: 0 0 0 1px #888888;
+    border: solid 3px currentColor;
+    border-radius: 6px;
+    background-color: rgb(106, 107, 191);
+    /* background-color: var(--accent-color); */
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.conD a:hover {
+    background-image: linear-gradient(rgba(255,255,255,0.2),rgba(255,255,255,0.2));
+}
+
+.conD .photo {
+    min-height: 200px;
+    background-image: url(/assets/image/game.png);
+    background-position: center;
+    background-size: cover;
+    
+}
+
+.conD .text {
+    padding: 20px;
+    text-align: left;
+    
+}
+
+.conD .container {
+    padding-top: 2px;
+}
 
 
 
@@ -224,6 +276,27 @@ app-body {
 
     .conC .text {
         flex: 2;
+        padding: 50px;
+    }
+
+    .conD .container {
+        display: flex;
+        flex-direction: row-reverse;
+        max-width: 1000px;
+        /* max-width: var(--large-width); */
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .conD .photo {
+        /* flex: 0 0 244px; */
+        flex: 0 0 400px;
+    }
+
+    .conD .text {
+        flex: 1;
         padding: 50px;
     }
 
