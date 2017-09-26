@@ -122,16 +122,49 @@ app-body {
     padding-bottom: 20px;
 }
 
-.blockGame {
-    padding: 0;
-    margin: 0;
+.conC h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
-.blockGame .container {
+.conC p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    opacity:0.5
+}
+
+.conC a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border: solid 3px currentColor;
+    border-radius: 6px;
+    background-color: rgb(106, 107, 191);
+    /* background-color: var(--accent-color); */
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.conC a:hover {
+    background-image: linear-gradient(rgba(255,255,255,0.2),rgba(255,255,255,0.2));
+}
+
+
+
+/* .blockGame {
+    padding: 0;
+    margin: 0;
+} */
+
+/* .blockGame .container {
     background: #2b5566;
     display: block;
     margin: 0 auto;
-}
+} */
 
 @media (min-width: 768px) {
     .conA h1 {
@@ -154,9 +187,12 @@ app-body {
         flex: 1;
     }
 
-
-
 }
+
+
+
+
+
 
 /* vietnamese */
 @font-face {
