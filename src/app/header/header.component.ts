@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isToggle:boolean;
+
+  constructor() {
+    this.isToggle =false;
+   }
 
   ngOnInit() {
+    
+  }
+
+  menuClick(){
+    if(this.isToggle == true) {
+      this.isToggle = false;
+    }else {
+      this.isToggle = true;
+    }
+
+    alert(this.isToggle);
   }
 
 }

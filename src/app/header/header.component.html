@@ -1,7 +1,13 @@
 <header>
     <div class="container">
-        <a href="http://justjoo.co.kr" class="headA">MANJOO</a>
-        <nav class="headB">
+        <div class="container-small">
+            <a href="http://justjoo.co.kr" class="headA">MANJOO</a>
+            <button type="button" class="headC" (click)="menuClick()">
+                <span class="fa fa-bars" title="MENU"></span>
+            </button>
+        </div>
+        <!-- <nav class="headB"> -->
+        <nav class="headB" ng-show="false">
             <ul>
                 <li><a href="http://justjoo.co.kr">HOME</a></li>
                 <li><a href="#">CONTENTS</a></li>
