@@ -1,11 +1,11 @@
-<script src="https://use.fontawesom.com/926fe18a63.js"></script>
-
+  
+<app-header></app-header>
 <section class="conA">
     <div calss="container">
         <!-- <img src="/assets/image/MANJOO_CI.svg" alt=""> -->
         <h1>MANJOO</h1>
         <p>매일 매일 즐겁게 코딩하는 회사</p>
-        <a href="#"  (click)="startManjoo()">만주 시작하기</a>
+        <a [routerLink]="['/food']" >만주 시작하기</a>
     </div>
 </section>
 
@@ -55,7 +55,7 @@
             <p>
                 만주의 첫번째 서비스인 푸드팩토리(가칭)에서는 무얼먹을지 이제 고민하지 않아도 가지고 있는 재료로 무얼 만들 수 있는지 알려줍니다.
             </p>
-            <a href="#"> let's eat
+            <a [routerLink]="['/food']" > let's eat
                 <span class="fa fa-chevron-right"></span>
             </a>
         </div>
@@ -81,6 +81,8 @@
 
 </section>
       
+<app-footer></app-footer>
+
 
 <!-- <div class="counter" [style.backgroundColor]="colorByValue()">{{curVal}}</div>
 <div class="row buttons">

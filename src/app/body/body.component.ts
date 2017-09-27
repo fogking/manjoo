@@ -20,6 +20,7 @@ export class BodyComponent implements OnInit {
 
   // TODO : 앞으로는 어디로 갈지 정해야 함.
   startManjoo(){
+    
     alert("만주의 첫번째 이야기가 곧 시작합니다!");
   }
 
