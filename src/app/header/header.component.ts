@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,23 +8,28 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   isToggle:boolean;
+  headShow:HTMLObjectElement;
+
+  @ViewChild("headToggle") headToggle;
 
   constructor() {
     this.isToggle =false;
-   }
-
-  ngOnInit() {
     
   }
 
-  menuClick(){
+  ngOnInit() {
+    this.headShow = this.headToggle.nativeElement;
+  }
+
+  menuClick() {
     if(this.isToggle == true) {
       this.isToggle = false;
     }else {
       this.isToggle = true;
     }
 
-    alert(this.isToggle);
+    this.headShow.hidden=this.isToggle;
   }
+
 
 }
