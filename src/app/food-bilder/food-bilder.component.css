@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.filter {
+    display: flex;
+    align-items: center;
+}
+
+.filter .container {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border: solid 3px currentColor;
+    background-color: rgb(106,107,191);
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+
+}
+

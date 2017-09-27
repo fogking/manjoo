@@ -36,7 +36,7 @@ import { FoodBilderComponent } from './food-bilder/food-bilder.component';
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full'},
 
-      { path: 'home', component: BodyComponent},
+      { path: 'home', component: BodyComponent },
       { path: 'food', component: FoodBilderComponent },
 
       {path: '**', redirectTo:'home'}
