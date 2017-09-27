@@ -13,12 +13,13 @@ export class HeaderComponent implements OnInit {
   @ViewChild("headToggle") headToggle;
 
   constructor() {
-    this.isToggle =false;
+    this.isToggle =true;
     
   }
 
   ngOnInit() {
     this.headShow = this.headToggle.nativeElement;
+    this.headShow.hidden = this.isToggle;
   }
 
   menuClick() {
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit {
     }else {
       this.isToggle = true;
     }
-
+    
     this.headShow.hidden=this.isToggle;
   }
 
