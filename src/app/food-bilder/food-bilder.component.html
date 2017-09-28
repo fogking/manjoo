@@ -2,7 +2,7 @@
   <section class="filter">
     <div class="container">
       재료 필터<i class="fa fa-arrow-right"></i> 
-      <input type="text">
+      <input type="text" >
     </div>
   </section>
   <section class="contents">
@@ -13,9 +13,9 @@
           <label>재료 목록</label>
         </div>
         <div>
-          <select class="ingredient" name='ingredient' size=6>
-            <option value="oil">식용유</option>
-            <option value="egg">달걀</option>
+          <select class="ingredient" [ngModel]="selectedIngredient" (ngModelChange)="fridgeListAdd($event)">
+            <!-- <option value="none">==선택==</option> -->
+            <option *ngFor="let item of ingredientList" (selected)="test($event)" [value]="item">{{item}}</option>
           </select>
         </div>
       </div>
@@ -24,25 +24,20 @@
           <label>냉장고</label>
         </div>
         <div>
-          <input class="fridge" type="text">
+          <input class="fridge" type="text" [(ngModel)]="fridgeList" value="'{{fridgeList}}'">
         </div>
         <div>
           <label>레시피 리스트</label>
         </div>
         <div>
           <table class="table">
-            <tr>
-              <td>계란 후라이</td>
+            <tr *ngFor="let item of recipeList">
+              <td>{{item}}</td>
             </tr>
-            <tr>
-              <td>계란 후라이</td>
-            </tr>
-            <tr>
-                <td>계란 후라이</td>
-              </tr>
           </table>
         </div>
       </div>
     </div>
   </section>
+  <button type="button" (click)="test($event)">test</button>
 </div>
